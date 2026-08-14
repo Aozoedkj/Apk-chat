@@ -18,18 +18,19 @@ jobs:
         with:
           flutter-version: '3.19.0'
 
-      - name: Recreate Android Project
+      - name: Recreate Android Project & Fix SDK Versions
         run: |
           cp pubspec.yaml pubspec.yaml.bak
           flutter create --project-name=apk_chat --platforms=android .
           cp pubspec.yaml.bak pubspec.yaml
+          sed -i 's/minSdkVersion .*/minSdkVersion 23/' android/app/build.gradle
+          sed -i 's/compileSdkVersion .*/compileSdkVersion 35/' android/app/build.gradle
 
       - name: Install Dependencies
         run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --release --no-tree-shake-icons
-        continue-on-error: false
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
