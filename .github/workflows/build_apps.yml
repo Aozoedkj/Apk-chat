@@ -16,15 +16,22 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
+          channel: 'stable'
 
-      - name: Recreate Android Project & Fix SDK Versions
+      - name: Recreate Android Project & Configure Gradle/Kotlin
         run: |
           cp pubspec.yaml pubspec.yaml.bak
           flutter create --project-name=apk_chat --platforms=android .
           cp pubspec.yaml.bak pubspec.yaml
+          
+          # تعديل نسخ Android SDK
           sed -i 's/minSdkVersion .*/minSdkVersion 23/' android/app/build.gradle
           sed -i 's/compileSdkVersion .*/compileSdkVersion 35/' android/app/build.gradle
+          
+          # تحديث نسخة Kotlin في android/build.gradle لتتوافق مع المكتبات الحديثة
+          if [ -f android/build.gradle ]; then
+            sed -i 's/ext.kotlin_version = .*/ext.kotlin_version = "1.8.20"/' android/build.gradle
+          fi
 
       - name: Install Dependencies
         run: flutter pub get
