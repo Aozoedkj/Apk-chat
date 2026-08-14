@@ -1,19 +1,31 @@
-name: al_shalla_app
-description: "تطبيق الشلة - مسنجر وبنترست الذكي"
-version: 1.0.0+1
+name: Build Android APK
 
-environment:
-  sdk: '>=3.0.0 <4.0.0'
+on: [push]
 
-dependencies:
-  flutter:
-    sdk: flutter
-  flutter_staggered_grid_view: ^0.7.0
-  shared_preferences: ^2.2.2
-  image_picker: ^1.0.7
-  record: ^5.1.2
-  audioplayers: ^6.0.0
-  cupertino_icons: ^1.0.2
+jobs:
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-flutter:
-  uses-material-design: true
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
