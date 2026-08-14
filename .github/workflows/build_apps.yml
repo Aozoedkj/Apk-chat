@@ -19,7 +19,7 @@ jobs:
           flutter-version: '3.19.0'
 
       - name: Create Android Project Structure
-        run: flutter create --platforms=android .
+        run: flutter create --project-name=apk_chat --platforms=android .
 
       - name: Install Dependencies
         run: flutter pub get
