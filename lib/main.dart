@@ -329,7 +329,7 @@ class _MainChatScreenState extends State<MainChatScreen> with SingleTickerProvid
                 value: 'details',
                 child: Row(
                   children: [
-                    Icon(Icons.group, color: Colors.black50),
+                    Icon(Icons.group, color: Colors.black54),
                     SizedBox(width: 8),
                     Text('تفاصيل المجموعة والأعضاء'),
                   ],
@@ -409,7 +409,7 @@ class _MainChatScreenState extends State<MainChatScreen> with SingleTickerProvid
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
-                        color: isMe ? Colors.white70 : Colors.black50,
+                        color: isMe ? Colors.white70 : Colors.black54,
                       ),
                     ),
                     if (msg['isAdmin'] == true)
@@ -461,7 +461,7 @@ class _MainChatScreenState extends State<MainChatScreen> with SingleTickerProvid
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(15),
-            boxShadow: const [BoxShadow(color: Colors.black05, blurRadius: 4)],
+            boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
